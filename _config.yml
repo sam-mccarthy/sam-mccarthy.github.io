@@ -33,6 +33,36 @@ header_pages:
   - about.md
   - portfolio.md
 
+sass:
+  style: compressed
+
+number_of_posts: 5
+
+# Jekyll Compose default front matter
+jekyll_compose:
+  post_default_front_matter:
+    modified:
+    tags: []
+    description:
+  draft_default_front_matter:
+    modified:
+    tags: []
+    description:
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: post
+      comments: false
+
+# Collection setting
+collections:
+  posts:
+    output: true
+
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
