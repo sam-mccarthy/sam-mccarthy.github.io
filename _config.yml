@@ -14,7 +14,6 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Sam's Software Ventures
-email: samuelmccar@gmail.com
 description: >- # this means to ignore newlines until "url:"
   Blog to document my software endeavors and to serve as a portfolio of sorts
 url: "sam-mccarthy.github.io" # the base hostname & protocol for your site, e.g. http://example.com
@@ -22,9 +21,17 @@ github_username:  sam-mccarthy
 
 # Build settings
 markdown: kramdown
-theme: minima
+remote_theme: piharpi/jekyll-klise
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-loading-lazy
+  - jekyll-responsive-image
+  - jekyll-remote-theme
+header_pages:
+  - about.md
+  - portfolio.md
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
