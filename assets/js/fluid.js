@@ -36,20 +36,52 @@ function init() {
     let ink = newTexture(canvas, gl);
     let vorticity = newTexture(canvas, gl);
 
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, pressure);
+
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, velocity);
+
+    gl.activeTexture(gl.TEXTURE2);
+    gl.bindTexture(gl.TEXTURE_2D, ink);
+
+    gl.activeTexture(gl.TEXTURE3);
+    gl.bindTexture(gl.TEXTURE_2D, vorticity);
+
     let impulse_uniform = gl.getUniformLocation(fluidProgram, "u_impulse");
+    let pressure_uniform = gl.getUniformLocation(fluidProgram, "u_pressure");
+    let velocity_uniform = gl.getUniformLocation(fluidProgram, "u_velocity");
+    let ink_uniform = gl.getUniformLocation(fluidProgram, "u_ink");
+    let vorticity_uniform = gl.getUniformLocation(fluidProgram, "u_vorticity");
+
+    let vertex_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        0.0,  0.0,
+        1.0,  0.0,
+        0.0,  1.0,
+        0.0,  1.0,
+        1.0,  0.0,
+        1.0,  1.0
+    ]), gl.STATIC_DRAW);
+
     let impulse_x = 0;
     let impulse_y = 0;
     let impulse_dx = 0;
     let impulse_dy = 0;
 
     setInterval(function() {
-        update(gl, pressure, velocity, ink, vorticity);
+        
     }, 0);
 
     setInterval(function() { 
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.uniform4f(impulse_uniform, impulse_x, impulse_y, impulse_dx, impulse_dy);
+        gl.uniform1i(pressure_uniform, 0);
+        gl.uniform1i(velocity_uniform, 1);
+        gl.uniform1i(ink_uniform, 2);
+        gl.uniform1i(vorticity_uniform, 3);
+
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
     }, 0);
 }
 
