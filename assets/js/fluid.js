@@ -30,6 +30,31 @@ function init() {
         console.log("WebGL unavailable.");
         return;
     }
+    
+    $.get("fluid.vs").success(function(vs_src){
+        $.get("fluid.fs").success(function(fs_src){
+            glSetup(gl, vs_src, fs_src);
+        });
+    });
+}
+
+function glSetup(gl, vertex_src, fragment_src){
+    let canvas = gl.canvas;
+
+    let vertex_shader = gl.createShader(gl.VERTEX_SHADER);
+    let fragment_shader = gl.createShader(gl.FRAGMENT_SHADER);
+    
+    gl.shaderSource(vertex_shader, vertex_src);
+    gl.shaderSource(fragment_shader, fragment_src);
+
+    gl.compileShader(vertex_shader);
+    gl.compileShader(fragment_shader);
+    
+    let fluid_program = gl.createProgram();
+    gl.attachShader(fluid_program, vertex_shader);
+    gl.attachShader(fluid_program, fragment_shader);
+    gl.linkProgram(fluid_program);
+    gl.useProgram(fluid_program);
 
     let pressure = newTexture(canvas, gl);
     let velocity = newTexture(canvas, gl);
@@ -48,14 +73,27 @@ function init() {
     gl.activeTexture(gl.TEXTURE3);
     gl.bindTexture(gl.TEXTURE_2D, vorticity);
 
-    let impulse_uniform = gl.getUniformLocation(fluidProgram, "u_impulse");
-    let pressure_uniform = gl.getUniformLocation(fluidProgram, "u_pressure");
-    let velocity_uniform = gl.getUniformLocation(fluidProgram, "u_velocity");
-    let ink_uniform = gl.getUniformLocation(fluidProgram, "u_ink");
-    let vorticity_uniform = gl.getUniformLocation(fluidProgram, "u_vorticity");
+    let position_attribute = gl.getAttribLocation(fluid_program, "a_position");
+    let texcoord_attribute = gl.getAttribLocation(fluid_program, "a_texCoord");
+    let impulse_uniform = gl.getUniformLocation(fluid_program, "u_impulse");
+    let pressure_uniform = gl.getUniformLocation(fluid_program, "u_pressure");
+    let velocity_uniform = gl.getUniformLocation(fluid_program, "u_velocity");
+    let ink_uniform = gl.getUniformLocation(fluid_program, "u_ink");
+    let vorticity_uniform = gl.getUniformLocation(fluid_program, "u_vorticity");
 
-    let vertex_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+    let position_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
+    gl.bindBuffer(gl.ARRAY_BUFFER, position_buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        0,              0,
+        canvas.width,   0,
+        0,              canvas.height,
+        0,              canvas.height,
+        canvas.width,   0,
+        canvas.width,   canvas.height
+    ]), gl.STATIC_DRAW);
+
+    let texcoord_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
+    gl.bindBuffer(gl.ARRAY_BUFFER, texcoord_buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
         0.0,  0.0,
         1.0,  0.0,
@@ -65,14 +103,32 @@ function init() {
         1.0,  1.0
     ]), gl.STATIC_DRAW);
 
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0, 0, 0, 0);
+    gl.useProgram();
+
+    let size = 2;
+    let type = gl.FLOAT;
+    let normalize = false;
+    let stride = 0;
+    let offset = 0;
+
+    gl.enableVertexAttribArray(position_attribute);
+    gl.bindBuffer(gl.ARRAY_BUFFER, position_attribute);
+    gl.vertexAttribPointer(texcoord_attribute, size, type, normalize, stride, offset);
+
+    gl.enableVertexAttribArray(texcoord_attribute);
+    gl.bindBuffer(gl.ARRAY_BUFFER, texcoord_attribute);
+    gl.vertexAttribPointer(texcoord_attribute, size, type, normalize, stride, offset);
+
     let impulse_x = 0;
     let impulse_y = 0;
     let impulse_dx = 0;
     let impulse_dy = 0;
 
-    setInterval(function() {
+    /*setInterval(function() {
         
-    }, 0);
+    }, 0);*/
 
     setInterval(function() { 
         gl.uniform4f(impulse_uniform, impulse_x, impulse_y, impulse_dx, impulse_dy);
