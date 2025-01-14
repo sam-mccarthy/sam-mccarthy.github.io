@@ -1,6 +1,6 @@
 function newTexture(canvas, gl){
-    let tex = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, tex);
+    let texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
 
     const level = 0;
     const format = gl.RGBA;
@@ -16,7 +16,7 @@ function newTexture(canvas, gl){
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-    return tex;
+    return texture;
 }
 
 function init() {
@@ -36,18 +36,21 @@ function init() {
     let ink = newTexture(canvas, gl);
     let vorticity = newTexture(canvas, gl);
 
+    let impulse_uniform = gl.getUniformLocation(fluidProgram, "u_impulse");
+    let impulse_x = 0;
+    let impulse_y = 0;
+    let impulse_dx = 0;
+    let impulse_dy = 0;
+
     setInterval(function() {
         update(gl, pressure, velocity, ink, vorticity);
     }, 0);
-    setInterval(function() { draw(ink) }, 0);
-}
 
-function update(gl, pressure, velocity, ink, vorticity){
-    
-}
-
-function draw(texture){
-
+    setInterval(function() { 
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.uniform4f(impulse_uniform, impulse_x, impulse_y, impulse_dx, impulse_dy);
+    }, 0);
 }
 
 window.onload = init;
