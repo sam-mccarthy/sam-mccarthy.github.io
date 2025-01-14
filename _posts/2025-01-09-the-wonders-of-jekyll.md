@@ -19,4 +19,7 @@ When I was setting up the site through Github Pages, I discovered Jekyll, and de
 
 It took me a little bit to find a nice theme, but I ended up deciding on the elegant [Klisé theme](https://github.com/piharpi/jekyll-klise), for its simplicity and beauty. There are a couple issues with it, from what I can tell - the footer is static, so you have to override the theme file for it, and the dark-mode button doesn't seem to work - not on Firefox, at least.
 
-But, alas, that concludes this welcome of sorts. Always appreciate anyone taking a look at these posts! I'll be seeing what more can be done with Jekyll - I'm thinking a Javascript simulation embedded in a blog post sounds fun.
+But, alas, that concludes this welcome of sorts. Always appreciate anyone taking a look at these posts! I'll be seeing what more can be done with Jekyll - like this here simulation.
+
+<canvas id="fluid" style="width: 100%; height: 100%;"></canvas>
+<script src="{{ base.url | prepend: site.url }}/assets/js/fluid.js"></script>
