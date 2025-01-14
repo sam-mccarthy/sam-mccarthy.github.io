@@ -22,4 +22,5 @@ It took me a little bit to find a nice theme, but I ended up deciding on the ele
 But, alas, that concludes this welcome of sorts. Always appreciate anyone taking a look at these posts! I'll be seeing what more can be done with Jekyll - like this here simulation.
 
 <canvas id="fluid" style="width: 100%;"></canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{ base.url | prepend: site.url }}/assets/js/fluid.js"></script>

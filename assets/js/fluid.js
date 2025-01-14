@@ -31,14 +31,15 @@ function init() {
         return;
     }
     
-    $.get("fluid.vs").success(function(vs_src){
-        $.get("fluid.fs").success(function(fs_src){
+    $.get("../../../../../assets/js/fluid.vs", function(vs_src){
+        $.get("../../../../../assets/js/fluid.fs", function(fs_src){
             glSetup(gl, vs_src, fs_src);
         });
     });
 }
 
 function glSetup(gl, vertex_src, fragment_src){
+    console.log(vertex_src);
     let canvas = gl.canvas;
 
     let vertex_shader = gl.createShader(gl.VERTEX_SHADER);
@@ -74,7 +75,6 @@ function glSetup(gl, vertex_src, fragment_src){
     gl.bindTexture(gl.TEXTURE_2D, vorticity);
 
     let position_attribute = gl.getAttribLocation(fluid_program, "a_position");
-    let texcoord_attribute = gl.getAttribLocation(fluid_program, "a_texCoord");
     let impulse_uniform = gl.getUniformLocation(fluid_program, "u_impulse");
     let pressure_uniform = gl.getUniformLocation(fluid_program, "u_pressure");
     let velocity_uniform = gl.getUniformLocation(fluid_program, "u_velocity");
@@ -105,7 +105,6 @@ function glSetup(gl, vertex_src, fragment_src){
 
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0, 0, 0, 0);
-    gl.useProgram();
 
     let size = 2;
     let type = gl.FLOAT;
@@ -114,12 +113,8 @@ function glSetup(gl, vertex_src, fragment_src){
     let offset = 0;
 
     gl.enableVertexAttribArray(position_attribute);
-    gl.bindBuffer(gl.ARRAY_BUFFER, position_attribute);
-    gl.vertexAttribPointer(texcoord_attribute, size, type, normalize, stride, offset);
-
-    gl.enableVertexAttribArray(texcoord_attribute);
-    gl.bindBuffer(gl.ARRAY_BUFFER, texcoord_attribute);
-    gl.vertexAttribPointer(texcoord_attribute, size, type, normalize, stride, offset);
+    gl.bindBuffer(gl.ARRAY_BUFFER, position_buffer);
+    gl.vertexAttribPointer(position_attribute, size, type, normalize, stride, offset);
 
     let impulse_x = 0;
     let impulse_y = 0;
