@@ -1,6 +1,13 @@
-#version 300 es
+#version 460 es
 precision mediump float;
 
-vec4 boundary(vec2 coords, vec2 offset, float scale, sampler2D x){
-    return scale * texture(x, coords + offset);
+in vec2 coords;
+in vec2 offset;
+out vec4 result;
+
+uniform float scale;
+uniform sampler2D x;
+
+void main(){
+    result = scale * texture(x, coords + offset);
 }
