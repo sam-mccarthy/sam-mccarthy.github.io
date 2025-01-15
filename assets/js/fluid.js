@@ -1,4 +1,4 @@
-function newTexture(canvas, gl){
+function new_texture(canvas, gl){
     let texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
 
@@ -19,6 +19,23 @@ function newTexture(canvas, gl){
     return texture;
 }
 
+async function load_shader(gl, name) {
+    let src = document.currentScript.src;
+    let base = src.substring(0, src.lastIndexOf("/"));
+    let shader_url = `${base}/${name}`;
+
+    let request = await fetch(shader_url);
+    let shader_src = await request.text();
+    
+    let type = name.endsWith("vs") ? gl.VERTEX_SHADER : gl.FRAGMENT_SHADER;
+    let shader = gl.createShader(type);
+
+    gl.shaderSource(shader, shader_src);
+    gl.compileShader(shader);
+
+    return shader;
+}
+
 function init() {
     let canvas = document.getElementById('fluid');
     canvas.width *= 4;
@@ -30,15 +47,25 @@ function init() {
         console.log("WebGL unavailable.");
         return;
     }
-    
-    $.get("../../../../../assets/js/fluid.vs", function(vs_src){
-        $.get("../../../../../assets/js/fluid.fs", function(fs_src){
-            glSetup(gl, vs_src, fs_src);
-        });
-    });
+
+    let shader_names = ["advect.fs", "boundary.fs", "divergence.fs", "force.fs", "gradient.fs", "jacobi.fs", "vertex.vs"];
+    let shaders = {};
+
+    for(let name of shader_names) {
+        let shader = load_shader(name);
+        if(shader == null){
+            console.error("Failed loading shaders.");
+            return;
+        }
+
+        let basename = name.split('.')[0];
+        shaders[basename] = shader;
+    }
+
+    gl_setup(gl, shaders);
 }
 
-function glSetup(gl, vertex_src, fragment_src){
+function gl_setup(gl, shaders){
     let canvas = gl.canvas;
 
     let vertex_shader = gl.createShader(gl.VERTEX_SHADER);
@@ -56,10 +83,10 @@ function glSetup(gl, vertex_src, fragment_src){
     gl.linkProgram(fluid_program);
     gl.useProgram(fluid_program);
 
-    let pressure = newTexture(canvas, gl);
-    let velocity = newTexture(canvas, gl);
-    let ink = newTexture(canvas, gl);
-    let vorticity = newTexture(canvas, gl);
+    let pressure = new_texture(canvas, gl);
+    let velocity = new_texture(canvas, gl);
+    let ink = new_texture(canvas, gl);
+    let vorticity = new_texture(canvas, gl);
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, pressure);
