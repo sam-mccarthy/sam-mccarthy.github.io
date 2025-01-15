@@ -39,7 +39,6 @@ function init() {
 }
 
 function glSetup(gl, vertex_src, fragment_src){
-    console.log(vertex_src);
     let canvas = gl.canvas;
 
     let vertex_shader = gl.createShader(gl.VERTEX_SHADER);
@@ -75,6 +74,8 @@ function glSetup(gl, vertex_src, fragment_src){
     gl.bindTexture(gl.TEXTURE_2D, vorticity);
 
     let position_attribute = gl.getAttribLocation(fluid_program, "a_position");
+    let resolution_uniform = gl.getUniformLocation(fluid_program, "u_resolution");
+
     let impulse_uniform = gl.getUniformLocation(fluid_program, "u_impulse");
     let pressure_uniform = gl.getUniformLocation(fluid_program, "u_pressure");
     let velocity_uniform = gl.getUniformLocation(fluid_program, "u_velocity");
@@ -90,17 +91,6 @@ function glSetup(gl, vertex_src, fragment_src){
         0,              canvas.height,
         canvas.width,   0,
         canvas.width,   canvas.height
-    ]), gl.STATIC_DRAW);
-
-    let texcoord_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
-    gl.bindBuffer(gl.ARRAY_BUFFER, texcoord_buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        0.0,  0.0,
-        1.0,  0.0,
-        0.0,  1.0,
-        0.0,  1.0,
-        1.0,  0.0,
-        1.0,  1.0
     ]), gl.STATIC_DRAW);
 
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -127,6 +117,7 @@ function glSetup(gl, vertex_src, fragment_src){
 
     setInterval(function() { 
         gl.uniform4f(impulse_uniform, impulse_x, impulse_y, impulse_dx, impulse_dy);
+        gl.uniform2f(resolution_uniform, canvas.width, canvas.height);
         gl.uniform1i(pressure_uniform, 0);
         gl.uniform1i(velocity_uniform, 1);
         gl.uniform1i(ink_uniform, 2);
