@@ -111,9 +111,15 @@ function glSetup(gl, vertex_src, fragment_src){
     let impulse_dx = 0;
     let impulse_dy = 0;
 
-    /*setInterval(function() {
-        
-    }, 0);*/
+    canvas.addEventListener("mousemove", (event) => {
+        // Is the primary button being pressed, too?
+        if(event.buttons & 1 == 1){
+            impulse_x = event.offsetX / canvas.clientWidth;
+            impulse_y = event.offsetY / canvas.clientHeight;
+            impulse_dx = event.movementX / canvas.clientWidth;
+            impulse_dy = event.movementY / canvas.clientHeight;
+        }
+    });
 
     setInterval(function() { 
         gl.uniform4f(impulse_uniform, impulse_x, impulse_y, impulse_dx, impulse_dy);
@@ -122,7 +128,7 @@ function glSetup(gl, vertex_src, fragment_src){
         gl.uniform1i(velocity_uniform, 1);
         gl.uniform1i(ink_uniform, 2);
         gl.uniform1i(vorticity_uniform, 3);
-
+        
         gl.drawArrays(gl.TRIANGLES, 0, 6);
     }, 0);
 }
