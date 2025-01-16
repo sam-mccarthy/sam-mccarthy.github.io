@@ -39,8 +39,8 @@ async function load_shader(gl, name) {
 
 async function init() {
     let canvas = document.getElementById('julia');
-    canvas.width *= 4;
-    canvas.height *= 4;
+    canvas.width *= 8;
+    canvas.height *= 8;
 
     let gl = canvas.getContext("webgl2");
 
