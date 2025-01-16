@@ -21,6 +21,6 @@ It took me a little bit to find a nice theme, but I ended up deciding on the ele
 
 But, alas, that concludes this welcome of sorts. Always appreciate anyone taking a look at these posts! I'll be seeing what more can be done with Jekyll. The following is part of an in-progress experiment of mine - rendering things within a Jekyll post. I embedded a Javascript canvas, along with a couple script tags in this Markdown file, so I'm able to use WebGL to execute GLSL shaders. I have a fullscreen example of this, as well, using a custom post layout - which you can checkout.
 
-<canvas id="fluid" style="width: 100%;"></canvas>
+<canvas id="julia" style="width: 100%;"></canvas>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="{{ base.url | prepend: site.url }}/assets/js/fluid.js"></script>
+<script src="{{ base.url | prepend: site.url }}/assets/js/julia.js"></script>

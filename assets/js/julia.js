@@ -80,6 +80,7 @@ function gl_setup(gl, shaders){
     let resolution_uniform = gl.getUniformLocation(julia_program, "resolution");
     let pan_uniform = gl.getUniformLocation(julia_program, "pan");
     let zoom_uniform = gl.getUniformLocation(julia_program, "zoom");
+    let cxy_uniform = gl.getUniformLocation(julia_program, "cxy");
 
     let position_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
     gl.bindBuffer(gl.ARRAY_BUFFER, position_buffer);
@@ -105,6 +106,9 @@ function gl_setup(gl, shaders){
     gl.bindBuffer(gl.ARRAY_BUFFER, position_buffer);
     gl.vertexAttribPointer(position_attribute, size, type, normalize, stride, offset);
 
+    let cx = 0;
+    let cy = 0;
+
     let pan_x = 0;
     let pan_y = 0;
 
@@ -113,6 +117,12 @@ function gl_setup(gl, shaders){
     canvas.addEventListener("mousemove", (event) => {
         // Is the primary button being pressed, too?
         if(event.buttons & 1 == 1){
+            if(event.shiftKey){
+                cx = event.offsetX / canvas.clientWidth * 2.0 - 1.0;
+                cy = event.offsetY / canvas.clientHeight * 2.0 - 1.0;
+                return;
+            }
+
             let x_ratio = (2.0 * 2.0 * zoom);
             let y_ratio = (canvas.height / canvas.width) * x_ratio;
             pan_x -= event.movementX / canvas.clientWidth * x_ratio;
@@ -123,12 +133,13 @@ function gl_setup(gl, shaders){
     canvas.addEventListener("wheel", (event) => {
         zoom *= event.deltaY > 0 ? 0.98 : 1.02;
 
-        return false;
+        event.preventDefault();
     });
 
     setInterval(function() { 
         gl.uniform2f(resolution_uniform, canvas.width, canvas.height);
         gl.uniform2f(pan_uniform, pan_x, pan_y);
+        gl.uniform2f(cxy_uniform, cx, cy);
         gl.uniform1f(zoom_uniform, zoom);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
     }, 0);
