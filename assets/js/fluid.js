@@ -68,21 +68,6 @@ function init() {
 function gl_setup(gl, shaders){
     let canvas = gl.canvas;
 
-    let vertex_shader = gl.createShader(gl.VERTEX_SHADER);
-    let fragment_shader = gl.createShader(gl.FRAGMENT_SHADER);
-    
-    gl.shaderSource(vertex_shader, vertex_src);
-    gl.shaderSource(fragment_shader, fragment_src);
-
-    gl.compileShader(vertex_shader);
-    gl.compileShader(fragment_shader);
-    
-    let fluid_program = gl.createProgram();
-    gl.attachShader(fluid_program, vertex_shader);
-    gl.attachShader(fluid_program, fragment_shader);
-    gl.linkProgram(fluid_program);
-    gl.useProgram(fluid_program);
-
     let pressure = new_texture(canvas, gl);
     let velocity = new_texture(canvas, gl);
     let ink = new_texture(canvas, gl);
@@ -102,12 +87,6 @@ function gl_setup(gl, shaders){
 
     let position_attribute = gl.getAttribLocation(fluid_program, "a_position");
     let resolution_uniform = gl.getUniformLocation(fluid_program, "u_resolution");
-
-    let impulse_uniform = gl.getUniformLocation(fluid_program, "u_impulse");
-    let pressure_uniform = gl.getUniformLocation(fluid_program, "u_pressure");
-    let velocity_uniform = gl.getUniformLocation(fluid_program, "u_velocity");
-    let ink_uniform = gl.getUniformLocation(fluid_program, "u_ink");
-    let vorticity_uniform = gl.getUniformLocation(fluid_program, "u_vorticity");
 
     let position_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
     gl.bindBuffer(gl.ARRAY_BUFFER, position_buffer);
@@ -149,12 +128,6 @@ function gl_setup(gl, shaders){
     });
 
     setInterval(function() { 
-        gl.uniform4f(impulse_uniform, impulse_x, impulse_y, impulse_dx, impulse_dy);
-        gl.uniform2f(resolution_uniform, canvas.width, canvas.height);
-        gl.uniform1i(pressure_uniform, 0);
-        gl.uniform1i(velocity_uniform, 1);
-        gl.uniform1i(ink_uniform, 2);
-        gl.uniform1i(vorticity_uniform, 3);
         
         gl.drawArrays(gl.TRIANGLES, 0, 6);
     }, 0);
