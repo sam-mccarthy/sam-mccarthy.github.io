@@ -106,8 +106,8 @@ function gl_setup(gl, shaders){
     gl.bindBuffer(gl.ARRAY_BUFFER, position_buffer);
     gl.vertexAttribPointer(position_attribute, size, type, normalize, stride, offset);
 
-    let cx = 0;
-    let cy = 0;
+    let cx = -0.79;
+    let cy = 0.15;
 
     let pan_x = 0;
     let pan_y = 0;

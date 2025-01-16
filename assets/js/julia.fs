@@ -10,7 +10,7 @@ uniform float zoom;
 
 void main(){
     const float R = 2.0;
-    const int MAX_ITER = 500;
+    const int MAX_ITER = 300;
 
     float x_ratio = 2.0 * R * zoom;
     float y_ratio = (resolution.y / resolution.x) * x_ratio;
