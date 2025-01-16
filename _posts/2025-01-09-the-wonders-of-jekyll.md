@@ -19,7 +19,7 @@ When I was setting up the site through Github Pages, I discovered Jekyll, and de
 
 It took me a little bit to find a nice theme, but I ended up deciding on the elegant [Klisé theme](https://github.com/piharpi/jekyll-klise), for its simplicity and beauty. There are a couple issues with it, from what I can tell - the footer is static, so you have to override the theme file for it, and the dark-mode button is broken if you don't set a default mode in `_config.yml`.
 
-But, alas, that concludes this welcome of sorts. Always appreciate anyone taking a look at these posts! I'll be seeing what more can be done with Jekyll. The following is an in-progress experiment (potentially a blank space), along the lines of a fluid sim in a Jekyll post. I embedded a JS canvas, along with a couple script tags in this Markdown file, so I'm able to use WebGL to do whatever I want! I have a fullscreen example of this in the works, as well, using a custom post layout.
+But, alas, that concludes this welcome of sorts. Always appreciate anyone taking a look at these posts! I'll be seeing what more can be done with Jekyll. The following is part of an in-progress experiment of mine - rendering things within a Jekyll post. I embedded a Javascript canvas, along with a couple script tags in this Markdown file, so I'm able to use WebGL to execute GLSL shaders. I have a fullscreen example of this, as well, using a custom post layout - which you can checkout.
 
 <canvas id="fluid" style="width: 100%;"></canvas>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
