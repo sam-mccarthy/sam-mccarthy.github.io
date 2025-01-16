@@ -14,10 +14,11 @@ void main(){
     const float cy = 0.15;
     const int MAX_ITER = 100;
 
-    float ratio = (resolution.y / resolution.x) * 2.0;
+    float x_ratio = 2.0 * ESCAPE_RADIUS * zoom;
+    float y_ratio = (resolution.y / resolution.x) * x_ratio;
     int iteration = 0;
-    float zx = (gl_FragCoord.x / resolution.x * 2.0 - 1.0) * ESCAPE_RADIUS;
-    float zy = (gl_FragCoord.y / resolution.y * ratio - ratio / 2.0) * ESCAPE_RADIUS;
+    float zx = ((gl_FragCoord.x / resolution.x) * x_ratio - x_ratio / 2.0) + pan.x;
+    float zy = ((gl_FragCoord.y / resolution.y) * y_ratio - y_ratio / 2.0) + pan.y;
 
     float xtemp;
     while(zx * zx + zy * zy < ESCAPE_RADIUS_2 && iteration < MAX_ITER){

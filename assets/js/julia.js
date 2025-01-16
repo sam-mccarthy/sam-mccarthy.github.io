@@ -113,14 +113,15 @@ function gl_setup(gl, shaders){
     canvas.addEventListener("mousemove", (event) => {
         // Is the primary button being pressed, too?
         if(event.buttons & 1 == 1){
-            pan_x += event.movementX / canvas.clientWidth;
-            pan_y += event.movementY / canvas.clientHeight;
+            let x_ratio = (2.0 * 2.0 * zoom);
+            let y_ratio = (canvas.height / canvas.width) * x_ratio;
+            pan_x -= event.movementX / canvas.clientWidth * x_ratio;
+            pan_y += event.movementY / canvas.clientHeight * y_ratio;
         }
     });
 
     canvas.addEventListener("wheel", (event) => {
-        zoom += event.deltaY / 100;
-        while(zoom <= 0) zoom -= event.deltaY / 100;
+        zoom *= event.deltaY > 0 ? 0.98 : 1.02;
 
         return false;
     });
