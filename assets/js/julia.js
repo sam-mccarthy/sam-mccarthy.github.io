@@ -1,3 +1,4 @@
+var script = document.currentScript;
 function new_texture(canvas, gl){
     let texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -20,7 +21,7 @@ function new_texture(canvas, gl){
 }
 
 async function load_shader(gl, name) {
-    let src = document.currentScript.src;
+    let src = script.src;
     let base = src.substring(0, src.lastIndexOf("/"));
     let shader_url = `${base}/${name}`;
 
@@ -36,12 +37,12 @@ async function load_shader(gl, name) {
     return shader;
 }
 
-function init() {
+async function init() {
     let canvas = document.getElementById('julia');
     canvas.width *= 4;
     canvas.height *= 4;
 
-    let gl = canvas.getContext("webgl");
+    let gl = canvas.getContext("webgl2");
 
     if(gl == null){
         console.log("WebGL unavailable.");
@@ -52,7 +53,7 @@ function init() {
     let shaders = {};
 
     for(let name of shader_names) {
-        let shader = load_shader(name);
+        let shader = await load_shader(gl, name);
         if(shader == null){
             console.error("Failed loading shaders.");
             return;
@@ -69,6 +70,7 @@ function gl_setup(gl, shaders){
     let canvas = gl.canvas;
 
     let julia_program = gl.createProgram();
+    console.log(shaders);
     gl.attachShader(julia_program, shaders.vertex);
     gl.attachShader(julia_program, shaders.julia);
     gl.linkProgram(julia_program);
@@ -77,6 +79,7 @@ function gl_setup(gl, shaders){
     let position_attribute = gl.getAttribLocation(julia_program, "position");
     let resolution_uniform = gl.getUniformLocation(julia_program, "resolution");
     let pan_uniform = gl.getUniformLocation(julia_program, "pan");
+    let zoom_uniform = gl.getUniformLocation(julia_program, "zoom");
 
     let position_buffer = gl.createBuffer(gl.ARRAY_BUFFER);
     gl.bindBuffer(gl.ARRAY_BUFFER, position_buffer);
@@ -105,7 +108,7 @@ function gl_setup(gl, shaders){
     let pan_x = 0;
     let pan_y = 0;
 
-    let zoom = 1 / (zoom);
+    let zoom = 1;
 
     canvas.addEventListener("mousemove", (event) => {
         // Is the primary button being pressed, too?
@@ -116,13 +119,16 @@ function gl_setup(gl, shaders){
     });
 
     canvas.addEventListener("wheel", (event) => {
-        zoom += event.deltaY / 10;
+        zoom += event.deltaY / 100;
+        while(zoom <= 0) zoom -= event.deltaY / 100;
 
         return false;
     });
 
     setInterval(function() { 
-        
+        gl.uniform2f(resolution_uniform, canvas.width, canvas.height);
+        gl.uniform2f(pan_uniform, pan_x, pan_y);
+        gl.uniform1f(zoom_uniform, zoom);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
     }, 0);
 }

@@ -13,11 +13,13 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Sam's Software Ventures
+title: Softlywaring
 description: >- # this means to ignore newlines until "url:"
   Blog to document my software endeavors and to serve as a portfolio of sorts
 url: "sam-mccarthy.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  sam-mccarthy
+
+mode: light
 
 # Build settings
 markdown: kramdown
@@ -66,11 +68,12 @@ collections:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - _posts/wip
