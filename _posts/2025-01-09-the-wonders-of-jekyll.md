@@ -25,4 +25,4 @@ You can hold shift to change the Julia constant, and you can pan and zoom with y
 
 <canvas id="julia" style="width: 100%;"></canvas>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="{{ base.url | prepend: site.url }}/assets/js/julia.js"></script>
+<script src="{{ site.url }}/assets/js/julia.js"></script>
