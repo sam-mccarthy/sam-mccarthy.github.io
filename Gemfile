@@ -15,10 +15,8 @@ gem "jekyll-remote-theme", "~> 0.4.3"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.6"
-  gem "jekyll-seo-tag", "~> 2.8"
   gem "jekyll-sitemap", "~> 1.4"
-  gem "jekyll-loading-lazy", "~> 0.1.1"
-  gem "jekyll-responsive-image", "~> 1.6.0"
+  gem 'jekyll-theme-chirpy', '~> 7.2', '>= 7.2.4'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem

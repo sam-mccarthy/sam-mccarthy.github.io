@@ -1,0 +1,12 @@
+#  Sharing options at the bottom of the post.
+#  Icons from <https://fontawesome.com/>
+
+platforms:
+  # Uncomment below if you need to.
+  - type: Linkedin
+    icon: "fab fa-linkedin"
+    link: "https://www.linkedin.com/in/sammcs"
+
+  - type: Github
+    icon: "fab fa-github"
+    link: "https://github.com/sam-mccarthy"
