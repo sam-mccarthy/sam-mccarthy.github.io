@@ -1,0 +1,46 @@
+---
+---
+
+@use "main
+{%- if jekyll.environment == " production " -%}
+  .bundle
+{%- endif -%}
+";
+
+/* append your custom style below */
+
+#topbar-wrapper {
+    left: 260px;
+    right: 0;
+    position: relative;
+    width: calc(100% - 260px);
+    background-color: rgb(39, 40, 43);
+}
+
+#sidebar {
+    #avatar, .site-title {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .profile-wrapper {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .site-subtitle {
+        text-align: center;
+    }
+
+    .site-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 849px) {
+    #topbar-wrapper {
+        left: 0;
+        width: 100%;
+    }
+}
