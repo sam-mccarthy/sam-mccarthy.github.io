@@ -1,8 +1,9 @@
 ---
-layout: post
 title:  "A welcome, and my discovery of Jekyll"
 date:   2025-01-13 21:00:00 -0500
 categories: jekyll meta
+author: sam
+pin: true
 ---
 
 # A welcome

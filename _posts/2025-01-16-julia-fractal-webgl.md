@@ -1,7 +1,8 @@
 ---
-layout: custom
 title:  "Rendering of the Julia Fractal in WebGL"
 date:   2025-01-16 02:00:00 -0500
+author: sam
+pin: true
 ---
 
 <canvas id="julia" style="width: 100%;"></canvas>
