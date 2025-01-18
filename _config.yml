@@ -32,7 +32,6 @@ theme_mode: dark
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-chirpy
-remote-theme: cotes2020/jekyll-theme-chirpy
 
 plugins:
   - jekyll-feed
