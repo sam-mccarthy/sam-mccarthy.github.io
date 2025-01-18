@@ -10,13 +10,12 @@ source "https://rubygems.org"
 # Happy Jekylling!
 gem "jekyll", "~> 4.3.4"
 
-gem "jekyll-remote-theme", "~> 0.4.3"
-
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.6"
   gem "jekyll-sitemap", "~> 1.4"
   gem 'jekyll-theme-chirpy', '~> 7.2', '>= 7.2.4'
+  gem "jekyll-remote-theme", "~> 0.4.3"
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
