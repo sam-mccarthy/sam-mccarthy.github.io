@@ -33,6 +33,12 @@ I've been enjoying making crepes recently.
 English, because it's the only one I know.
 Kidding! Probably C++. Rust is also pretty neat.
 
+> What would you like to do with this site?
+
+I think that, visually, I could improve upon it some more. I already put some work into fixing the sidebar, but I think the site could do with some photos. Maybe some color, too. Also, since it's a new site, it needs more posts. Maybe I'll make the mission to be one post per week.
+
+Also, the homepage is broken. Only pinned posts show. Odd, isn't it?
+
 > Last question - why a blog?
 
 I talk a lot, so being able to put down my ideas is always nice. And, frankly, I missed writing, and it seemed like a nice hobby to try out.
