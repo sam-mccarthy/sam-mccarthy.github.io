@@ -34,7 +34,6 @@ markdown: kramdown
 theme: jekyll-theme-chirpy
 
 plugins:
-  - jekyll-feed
   - jekyll-sitemap
 header_pages:
   - about.md
