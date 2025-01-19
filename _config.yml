@@ -42,8 +42,6 @@ header_pages:
 sass:
   style: compressed
 
-number_of_posts: 5
-
 # Jekyll Compose default front matter
 jekyll_compose:
   post_default_front_matter:
