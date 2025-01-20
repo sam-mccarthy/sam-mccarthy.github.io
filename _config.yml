@@ -23,6 +23,7 @@ github_username:  sam-mccarthy
 
 avatar: 'assets/img/avatar.png'
 
+paginate: 10
 pwa:
   enabled: false
 

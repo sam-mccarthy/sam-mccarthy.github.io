@@ -3,7 +3,7 @@ title:  "UMBC CS Course Reviews"
 date:   2025-01-13 21:10:00 -0500
 categories: university class
 author: sam
-pin: true
+pin: false
 ---
 
 It's always fun to look back on your favorite classes and think about what your favorite parts have been, so that's exactly what I'll be doing. For context, I'm currently going into the second semester of my junior year at UMBC, and have been taking one or two computer science classes per semester. Might throw in math courses and other favorites, we'll see.
