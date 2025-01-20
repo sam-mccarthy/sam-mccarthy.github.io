@@ -1,8 +1,8 @@
 ---
 title:  "A welcome, and my discovery of Jekyll"
-date:   2025-01-13 21:00:00 -0500
-categories: jekyll meta
-author: sam
+date:   2025-01-13 12:00:00 -0500
+
+description: "A brief welcome to anyone visiting, a look at Jekyll, and an exercise in Javascript."
 pin: true
 ---
 

@@ -1,8 +1,8 @@
 ---
-title:  "Rendering of the Julia Fractal in WebGL"
-description: "Using script tags in a Jekyll .md file to render fractals using GLSL"
-date:   2025-01-16 02:00:00 -0500
-author: sam
+title:  "Rendering the Julia fractal using WebGL within Jekyll"
+date:   2025-01-16 12:00:00 -0500
+
+description: "Placing script tags within Jekyll posts makes for a fun exercise."
 pin: true
 ---
 

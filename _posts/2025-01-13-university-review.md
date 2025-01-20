@@ -1,8 +1,8 @@
 ---
-title:  "UMBC CS Course Reviews"
-date:   2025-01-13 21:10:00 -0500
-categories: university class
-author: sam
+title:  "A review of Computer Science courses at UMBC"
+date:   2025-01-13 12:00:00 -0500
+
+description: ""
 pin: false
 ---
 
