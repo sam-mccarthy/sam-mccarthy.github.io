@@ -2,7 +2,7 @@
 title:  "A review of Computer Science courses at UMBC"
 date:   2025-01-13 12:00:00 -0500
 
-description: ""
+description: "A look at what classes I enjoyed, and what classes I didn't really care for."
 pin: false
 ---
 
